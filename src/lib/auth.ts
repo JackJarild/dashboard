@@ -1,15 +1,14 @@
-import { configureAuth } from 'react-query-auth';
-
 import {
     loginWithEmailAndPassword,
     //getUser,
     registerWithEmailAndPassword,
     UserResponse,
-    LoginCredentialsDTO,
+    LoginCredentials,
     RegisterCredentialsDTO,
     AuthUser,
 } from '@/features/auth';
 import { storage } from '@/utils/storage';
+import { configureAuth } from 'react-query-auth';
 
 
 async function handleUserResponse(data: UserResponse) {
@@ -44,7 +43,7 @@ async function userFn() {
     return null;
 }
 
-async function loginFn(data: LoginCredentialsDTO) {
+async function loginFn(data: LoginCredentials) {
     const response = await loginWithEmailAndPassword(data);
     const user = await handleUserResponse(response);
     return user;

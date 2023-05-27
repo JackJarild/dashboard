@@ -117,7 +117,7 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
           FIND
         </Text>
         <Text as={'span'} fontSize="2xl" mt={3} ml={-1}>
-          <Icon as={ImSearch} color={'green.500'}  transform={'rotateZ(85deg)'}/>
+          <Icon as={ImSearch} color={'tfogreen.500'}  transform={'rotateZ(85deg)'}/>
         </Text>
         <Text fontSize="2xl" fontFamily="monospace" fontWeight="bold">
           UT
@@ -125,7 +125,7 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
         <CloseButton display={{ base: 'flex', md: 'none' }} onClick={onClose} />
       </Flex>
       {LinkItems.map((link) => (
-        <NavItem key={link.name} icon={link.icon} >
+        <NavItem key={link.name} icon={link.icon} _hover={{ bgColor: 'tfogreen.500', color: 'white' }} >
           {/* <Text as={'span'} bgGradient={'linear(to-r, #F4C8E1, #DB4D9E)'} bgClip={'text'}>{link.name}</Text> */}
           {link.name}
         </NavItem>

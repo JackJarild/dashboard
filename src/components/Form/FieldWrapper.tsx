@@ -16,7 +16,7 @@ export const FieldWrapper = (props: FieldWrapperProps) => {
     const { label, className, error, children } = props;
     return (
         <FormControl mt={6} className={className} isInvalid={error !== undefined}>
-            <FormLabel>{label}</FormLabel>
+            {label && <FormLabel>{label}</FormLabel>}
             {children}
             {error?.message && (
                 <FormErrorMessage>{error.message}</FormErrorMessage>

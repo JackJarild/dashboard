@@ -3,7 +3,7 @@ import * as z from 'zod';
 
 //import { Button } from '@/components/Elements';
 import { Form, InputField, InputGroupField } from '@/components/Form';
-import { Button, Heading, Icon, InputGroup, InputRightElement, Stack } from '@chakra-ui/react';
+import { Button, Heading, Icon, InputRightElement, Stack } from '@chakra-ui/react';
 import { useLogin } from '@/lib/auth';
 import { FiEye, FiEyeOff } from 'react-icons/fi';
 import { LoginCredentials } from '../api/login';
@@ -44,34 +44,17 @@ export const LoginForm = ({ onSuccess }: LoginFormProps) => {
           <>
             <InputField
               type="email"
-              label="Email Address"
               error={formState.errors['email']}
               registration={register('email')}
+              placeHolder='Email'
             />
-            {/* <InputGroup> */}
-            {/* <InputField
-              type="password"
-              label="Password"
+            <InputGroupField
+              type={showPassword ? 'text' : 'password'}
+              placeHolder='Password'
               error={formState.errors['password']}
               registration={register('password')}
-            /> */}
-            <InputGroupField>
-              <InputField
-                type={showPassword ? 'text' : 'password'}
-                error={formState.errors['password']}
-                registration={register('password')}
-              />
-              <InputRightElement h={'full'}>
-                <Button
-                  variant={'ghost'}
-                  onClick={() =>
-                    setShowPassword((showPassword) => !showPassword)
-                  }>
-                  {showPassword ? <Icon as={FiEye} /> : <Icon as={FiEyeOff} />}
-                </Button>
-              </InputRightElement>
-            </InputGroupField>
-            {/* <InputRightElement h={'full'}>
+              inputRightAddon={
+                <InputRightElement h={'full'}>
                   <Button
                     variant={'ghost'}
                     onClick={() =>
@@ -80,8 +63,8 @@ export const LoginForm = ({ onSuccess }: LoginFormProps) => {
                     {showPassword ? <Icon as={FiEye} /> : <Icon as={FiEyeOff} />}
                   </Button>
                 </InputRightElement>
-              </InputField>
-            </InputGroup> */}
+              }
+            />
             <Stack spacing={6}>
               <Stack
                 direction={{ base: 'column', sm: 'row' }}

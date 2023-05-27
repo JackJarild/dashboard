@@ -15,7 +15,7 @@ export type FieldWrapperPassThroughProps = Omit<FieldWrapperProps, 'className' |
 export const FieldWrapper = (props: FieldWrapperProps) => {
     const { label, className, error, children } = props;
     return (
-        <FormControl className={className} isInvalid={error !== undefined}>
+        <FormControl mt={6} className={className} isInvalid={error !== undefined}>
             <FormLabel>{label}</FormLabel>
             {children}
             {error?.message && (

@@ -9,23 +9,48 @@ type InputFieldProps = FieldWrapperPassThroughProps & {
   registration: Partial<UseFormRegisterReturn>
   placeHolder?: string
   size?: 'xs' | 'sm' | 'md' | 'lg'
-  variant?: 'outline' | 'filled' | 'flushed' | 'unstyled' 
+  variant?: 'outline' | 'filled' | 'flushed' | 'unstyled'
+  withoutWrapper?: boolean
 };
 
-export type InputFieldPassThroughProps = Omit<InputFieldProps, 'className' | 'children'>;
+export type InputFieldPassThroughProps = Omit<InputFieldProps, 'className'>;
 
 export const InputField = (props: InputFieldProps) => {
-  const { type = 'text', label, className, registration, placeHolder, size = 'md', variant = 'outline', error } = props;
+  const {
+    type = 'text',
+    label,
+    className,
+    registration,
+    placeHolder,
+    size = 'md',
+    variant = 'outline',
+    withoutWrapper = false,
+    error
+  } = props;
   return (
-    <FieldWrapper label={label} error={error}>
-      <Input
-        type={type}
-        className={className}
-        placeholder={placeHolder}
-        size={size}
-        variant={variant}
-        {...registration}
-      />
-    </FieldWrapper>
+    <>
+      {
+        withoutWrapper ?
+          <Input
+            type={type}
+            className={className}
+            placeholder={placeHolder}
+            size={size}
+            variant={variant}
+            {...registration}
+          />
+          :
+          <FieldWrapper label={label} error={error}>
+            <Input
+              type={type}
+              className={className}
+              placeholder={placeHolder}
+              size={size}
+              variant={variant}
+              {...registration}
+            />
+          </FieldWrapper>
+      }
+    </>
   );
 };

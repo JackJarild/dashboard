@@ -1,5 +1,5 @@
 import theme from '@/theme';
-import { Box, ChakraProvider, CircularProgress, extendTheme, useMediaQuery, type ThemeConfig, ColorModeScript, Flex, Heading, Text } from '@chakra-ui/react';
+import { Box, ChakraProvider, CircularProgress, extendTheme, useMediaQuery, type ThemeConfig, ColorModeScript, Flex, Heading, Text, Button } from '@chakra-ui/react';
 import * as React from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
 // import { HelmetProvider } from 'react-helmet-async';
@@ -39,6 +39,9 @@ const ErrorFallback = () => {
                 eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam
                 voluptua.
             </Text>
+            <Button className="mt-4" onClick={() => window.location.assign(window.location.origin)}>
+                Refresh
+            </Button>
         </Box>
     );
 };
@@ -59,7 +62,7 @@ export const AppProvider = ({ children }: AppProviderProps) => {
                     justifyContent="center"
                     alignItems="center"
                 >
-                    <CircularProgress isIndeterminate color='green.300' />
+                    <CircularProgress isIndeterminate color='tfogreen.500' />
                 </Box>
             }
         >
@@ -78,7 +81,7 @@ export const AppProvider = ({ children }: AppProviderProps) => {
                             >
                                 <CircularProgress isIndeterminate color='green.300' />
                             </Box>}
-                            // renderUnauthenticated={() => <Login />}
+                        // renderUnauthenticated={() => <Login />}
                         >
 
                             <BrowserRouter>{children}</BrowserRouter>

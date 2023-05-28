@@ -8,6 +8,7 @@ import { useUser } from '@/lib/auth';
 import { AnimatePresence } from 'framer-motion';
 import { lazyImport } from '@/utils/lazyImport';
 import { useEffect, useState } from 'react';
+import { ScaleFade } from '@chakra-ui/react';
 
 const { Login } = lazyImport(() => import('@/features/auth'), 'Login');
 const { Home } = lazyImport(() => import('@/features/home'), 'Home');
@@ -42,20 +43,26 @@ export const AppRoutes = () => {
 
   return (
     <AnimatePresence mode="wait">
-      <Routes location={location} key={location.pathname}>
-        <Route
-          path="/"
-          element={<Login />}
-        />
-        <Route
-          path="home"
-          element={
-            <ProtectedRoute user={user}>
-              <Home isFirstMount={isFirstMount} />
-            </ProtectedRoute>
-          }
-        />
-      </Routes>
+      <ScaleFade
+        key={location.pathname}
+        initialScale={0.9}
+        in={true}
+      >
+        <Routes location={location} key={location.pathname}>
+          <Route
+            path="/"
+            element={<Login />}
+          />
+          <Route
+            path="home"
+            element={
+              <ProtectedRoute user={user}>
+                <Home isFirstMount={isFirstMount} />
+              </ProtectedRoute>
+            }
+          />
+        </Routes>
+      </ScaleFade>
     </AnimatePresence>
   )
 };

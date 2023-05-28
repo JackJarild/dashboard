@@ -3,7 +3,7 @@ import * as z from 'zod';
 
 //import { Button } from '@/components/Elements';
 import { Form, InputField, InputGroupField } from '@/components/Form';
-import { Button, Heading, Icon, InputRightElement, Stack } from '@chakra-ui/react';
+import { Box, Button, Heading, Icon, InputRightElement, Stack,  useColorModeValue } from '@chakra-ui/react';
 import { useLogin } from '@/lib/auth';
 import { FiEye, FiEyeOff } from 'react-icons/fi';
 import { LoginCredentials } from '../api/login';
@@ -22,7 +22,7 @@ const schema = z.object({
 // };
 
 type LoginFormProps = {
-  onSuccess: () => void;
+  onSuccess: () => void
 };
 
 
@@ -31,12 +31,15 @@ export const LoginForm = ({ onSuccess }: LoginFormProps) => {
   const [showPassword, setShowPassword] = useState(false);
 
   return (
-    <Stack spacing={4} w={'full'} maxW={'md'}>
-      <Heading fontSize={'4xl'} textAlign={'center'}>Welcome back!</Heading>
+    <Box
+      rounded={'lg'}
+      bg={useColorModeValue('white', 'gray.700')}
+      boxShadow={'lg'}
+      p={8}>
       <Form<LoginCredentials, typeof schema>
         onSubmit={async (values) => {
-          login.mutate(values);
-          onSuccess();
+          login.mutate(values)
+          onSuccess()
         }}
         schema={schema}
       >
@@ -73,11 +76,11 @@ export const LoginForm = ({ onSuccess }: LoginFormProps) => {
                 <Link color={'teal.500'} to={''}>Forgot password?</Link>
               </Stack>
               <Button
-                variant={'solid'}
                 isLoading={login.isLoading}
                 type="submit"
-                bgColor={'tfogreen.500'}
-                _hover={{ bgColor: 'tfogreen.300' }}
+                //bgColor='primary'
+                // bgColor={'tfogreen.500'}
+                // _hover={{ bgColor: 'tfogreen.300' }}
               //bgGradient={'linear(to-r, #DB4D9E, #AC42DB, #2D1D8F)'}
               // _hover={{
               //   bgGradient: 'linear(to-r, #F4C8E1, #DB4D9E)',
@@ -86,11 +89,9 @@ export const LoginForm = ({ onSuccess }: LoginFormProps) => {
                 Sign in
               </Button>
             </Stack>
-
           </>
-        )
-        }
-      </Form >
-    </Stack >
-  );
-};
+        )}
+      </Form>
+    </Box>
+  )
+}

@@ -26,26 +26,6 @@ export const Layout = ({ children }: LayoutProps) => {
                             textAlign={'center'}
                             spacing={{ base: 3, md: 5 }}
                             py={{ base: 20, md: 28 }}>
-                            {/* <Heading
-                                color={'black'}
-                                fontWeight={700}
-                                lineHeight={1.2}
-                                fontSize={'7xl'}
-                            >
-                                To
-                                <Text as={'span'} color={'black'} fontWeight={500}>
-                                    Find
-                                </Text>
-                                <Text as={'span'} color={'tfogreen.500'}>
-                                    O
-                                </Text>
-                                <Text as={'span'} color={'black'}>
-                                    ut
-                                </Text>
-                                <Text color={'gray.300'} fontSize={'3xl'} ml={'5'}>
-                                    It's better to know
-                                </Text>
-                            </Heading> */}
                             <Flex h="20" alignItems="center" mx="8">
                                 <Text fontSize="7xl" fontFamily="monospace" fontWeight="bold">
                                     TO
@@ -64,7 +44,10 @@ export const Layout = ({ children }: LayoutProps) => {
                     </VStack>
                 </Flex>
                 <Flex p={8} flex={1} align={'center'} justify={'center'}>
-                    {children}
+                    <Stack spacing={4} w={'full'} maxW={'md'}>
+                    <Heading fontSize={'4xl'} textAlign={'center'}>Welcome back!</Heading>
+                        {children}
+                    </Stack>
                 </Flex>
             </Stack>
         </>

@@ -1,8 +1,5 @@
-// import colors from './colors'
+import { colors } from './colors'
 
-// const foundations = {
-//     colors
-// }
-
-// export default foundations
-export { colors } from "./colors.ts"
+export const foundations = {
+    colors
+}

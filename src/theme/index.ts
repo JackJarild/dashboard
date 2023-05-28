@@ -17,48 +17,14 @@
 
 
 import {
-  ChakraProvider,
-  Container,
   extendTheme,
-  Heading,
-  Alert,
-  AlertIcon,
-  AlertTitle,
-  AlertDescription,
-  Button,
-  Stack,
-  Box,
-  isChakraTheme,
   theme,
-  ThemeConfig
+  ThemeConfig,
+  withDefaultColorScheme
 } from "@chakra-ui/react";
-import * as foundations from '@/theme/foundations'
+import { foundations } from '@/theme/foundations'
+import { Button } from '@/theme/components'
 
-const baseTheme = {
-  ...theme,
-  components: {
-    ...theme.components,
-    Button: {
-      ...theme.components.Button,
-      baseStyle: {
-        ...theme.components.Button.baseStyle,
-        borderRadius: "md"
-      },
-      variants: {
-        ...theme.components.Button.variants,
-        // solid: {
-        //   border: "3px dashed"
-        // }
-      },
-      defaultProps: {
-        ...theme.components.Button.defaultProps,
-        variant: "solid",
-        colorScheme: "teal",
-        size: "md"
-      }
-    }
-  }
-};
 
 const config: ThemeConfig = {
   initialColorMode: 'system',
@@ -67,11 +33,28 @@ const config: ThemeConfig = {
 }
 
 const baseThemeOverrides = {
+  config,
   ...foundations,
-  config
+  semanticTokens: {
+    colors: {
+      primary: 'tfogreen',
+      accent: 'tfopink.500',
+      success: 'green.400',
+      error: 'red.500',
+      warning: 'orange.300',
+      information: 'blue.500'
+    }
+  },
+  components: {
+    Button
+  }
 };
 
-
-export default extendTheme(
-  baseThemeOverrides, baseTheme
-)
+export default extendTheme(baseThemeOverrides)
+// export default extendTheme(
+//   baseThemeOverrides,
+//   withDefaultColorScheme({
+//     colorScheme: 'tfogreen',
+//     components: ['Button']
+//   })
+// )

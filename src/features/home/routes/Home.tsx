@@ -29,7 +29,7 @@ export const Home = ({ isFirstMount }) => {
     return (
         <>
             <motion.section exit={{ opacity: 0 }}>
-                {isFirstMount && <InitialTransition />}
+                {/* {isFirstMount && <InitialTransition />} */}
                 <motion.div
                     initial="initial"
                     animate="animate"

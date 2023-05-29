@@ -2,10 +2,7 @@ import { ReactElement, ReactNode } from "react"
 import { Button as ChakraButton } from '@chakra-ui/react'
 
 const variants = {
-    primary: {
-        bg: 'tfogreen.500',
-        color: 'white',
-    },
+    primary: 'primary',
     secondary: 'secondary',
     outline: 'outline',
     ghost: 'ghost'

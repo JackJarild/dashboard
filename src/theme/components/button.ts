@@ -8,7 +8,6 @@ export const Button = defineStyleConfig({
     // textTransform: 'uppercase',
     borderRadius: 'base', // <-- border radius is same for all variants and sizes
   },
-  // Two variants: outline and solid
   variants: {
     outline: {
       border: '2px solid',
@@ -20,18 +19,23 @@ export const Button = defineStyleConfig({
         color: 'white',
       }
     },
-    solid: (props: StyleFunctionProps) => ({
+    primary: (props: StyleFunctionProps) => ({
       bg: 'tfogreen.500',
       color: 'white',
-      _hover: {
+      // _hover: {
 
-      }
+      // }
     }),
+    secondary: {
+      // bg: 'gray',
+      // color: 'black',
+      colorScheme: 'gray'
+    }
   },
   // The default size and variant values
   defaultProps: {
     size: 'md',
-    variant: 'solid',
-    colorScheme: 'tfogreen'
+    variant: 'primary',
+    //colorScheme: 'tfogreen'
   },
 })

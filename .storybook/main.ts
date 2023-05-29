@@ -1,4 +1,6 @@
 import type { StorybookConfig } from "@storybook/react-vite";
+import { mergeConfig } from 'vite';
+
 const config: StorybookConfig = {
   stories: ["../src/**/*.mdx", "../src/**/*.stories.@(js|jsx|ts|tsx)"],
   addons: [
@@ -7,9 +9,6 @@ const config: StorybookConfig = {
     "@storybook/addon-interactions",
     "@chakra-ui/storybook-addon"
   ],
-  features: {
-    
-  },
   framework: {
     name: "@storybook/react-vite",
     options: {},
@@ -18,7 +17,14 @@ const config: StorybookConfig = {
     autodocs: "tag",
   },
   core: {
-    disableTelemetry: true
+    disableTelemetry: true,
+    builder: '@storybook/builder-vite'
+  },
+  async viteFinal(config) {
+    return mergeConfig(config, {
+
+    })
   }
-};
+}
+
 export default config;

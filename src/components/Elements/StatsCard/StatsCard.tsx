@@ -9,6 +9,7 @@ import {
     title: string;
     stat: string;
   }
+  
   export const StatsCard = (props: StatsCardProps)  => {
     const { title, stat } = props;
     return (

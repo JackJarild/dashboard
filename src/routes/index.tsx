@@ -12,6 +12,8 @@ import { ScaleFade } from '@chakra-ui/react';
 
 const { Login } = lazyImport(() => import('@/features/auth'), 'Login');
 const { Home } = lazyImport(() => import('@/features/home'), 'Home');
+const { NotFound } = lazyImport(() => import('@/features/home'), 'NotFound');
+const { Settings } = lazyImport(() => import('@/features/settings'), 'Settings');
 
 export const AppRoutes = () => {
   const user = useUser({});
@@ -60,6 +62,18 @@ export const AppRoutes = () => {
                 <Home isFirstMount={isFirstMount} />
               </ProtectedRoute>
             }
+          />
+          <Route
+            path="settings"
+            element={
+              <ProtectedRoute user={user}>
+                <Settings />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path='*'
+            element={<NotFound />}
           />
         </Routes>
       </ScaleFade>

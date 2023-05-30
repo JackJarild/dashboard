@@ -1,6 +1,6 @@
 import { Stack, Flex, VStack, Heading, Text, Icon } from '@chakra-ui/react';
 import * as React from 'react';
-import loginBackground5 from '../../../assets/loginBackground5.svg'
+import loginBackground5 from '../assets/loginBackground5.svg'
 import { ImSearch } from 'react-icons/im';
 
 type LayoutProps = {

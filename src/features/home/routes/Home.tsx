@@ -1,6 +1,7 @@
 import { StatsCard } from "@/components/Elements";
-import { SidebarWithHeader } from "@/components/Layout"
-import { Box, Heading, SimpleGrid, chakra, useTheme } from "@chakra-ui/react"
+import { MainLayout, SidebarWithHeader } from "@/components/Layout"
+import { ReportPackageCard } from "@/components/ReportPackageCard";
+import { Box, Heading, Highlight, SimpleGrid, chakra, useTheme, Text, Flex } from "@chakra-ui/react"
 import { motion } from "framer-motion";
 import { useState } from "react";
 
@@ -43,9 +44,9 @@ export const Home = ({ isFirstMount }) => {
                     ToFindOut
                 </motion.h1> */}
 
-                <SidebarWithHeader>
+                <MainLayout>
                     <BasicStatistics />
-                </SidebarWithHeader>
+                </MainLayout>
             </motion.section>
         </>
     )
@@ -165,17 +166,42 @@ const InitialTransition = () => {
 const BasicStatistics = () => {
     return (
         <Box maxW="7xl" mx={'auto'} px={{ base: 2, sm: 12, md: 17 }}>
-            <chakra.h1
+            <Heading
+                lineHeight='tall'
                 textAlign={'center'}
-                fontSize={'4xl'}
+                fontSize={'5xl'}
                 py={10}
-                fontWeight={'bold'}>
-                Välkommen Jack!
-            </chakra.h1>
+                // bgGradient={'linear(to-r, tfopink.500, tfopink.600, tfopink.900)'}
+                // bgClip={'text'}
+            >
+                Välkommen
+                <Heading as={'span'}
+                    lineHeight='tall'
+                    fontSize={'5xl'}
+                    py={10}
+                    ml={3}
+                    //color={'tfopink.500'}
+                    bgGradient={'linear(to-r, tfopink.600, tfopink.700, tfopink.900)'}
+                    //bgGradient={'linear(to-r, #DB4D9E, #AC42DB, #2D1D8F)'}
+                    bgClip={'text'}
+                    >
+                    Jack!
+                </Heading>
+            </Heading>
+
+            <SimpleGrid columns={{ base: 1, md: 3 }} spacing={{ base: 5, lg: 8 }} mb={10}>
+                <StatsCard title={'Klara rapporter'} stat={'5st'} />
+                <StatsCard title={'Pågående rapporter'} stat={'30st'} />
+                <StatsCard title={'Inväntar godkännande'} stat={'2st'} />
+            </SimpleGrid>
             <SimpleGrid columns={{ base: 1, md: 3 }} spacing={{ base: 5, lg: 8 }}>
-                <StatsCard title={'Inväntar godkännande'} stat={'5st'} />
-                <StatsCard title={'Pågående'} stat={'30st'} />
-                <StatsCard title={'Olästa rapporter'} stat={'2st'} />
+                <ReportPackageCard key={1} daysToDeliver={5} description="Beskrivning" reportPackage="Grund" />
+                <ReportPackageCard key={2} daysToDeliver={10} description="Test" reportPackage="Grund + cv" />
+                <ReportPackageCard key={3} daysToDeliver={14}
+                    description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur non neque ac orci porttitor luctus non eget nisi. Donec id malesuada lacus. Donec vel lacus finibus mi mattis blandit nec sed nulla. Cras gravida neque eget malesuada bibendum. Integer volutpat, magna ac ultricies interdum, purus sem suscipit arcu, sed ornare odio turpis fringilla arcu. Praesent vulputate lorem vel augue mollis, sed congue odio dictum. Proin non volutpat massa."
+                    reportPackage="Fördjupad" />
+                <ReportPackageCard key={4} daysToDeliver={2} description="" reportPackage="Utland" />
+                <ReportPackageCard key={5} daysToDeliver={30} description="" reportPackage="Fördjupad + en utbildning" />
             </SimpleGrid>
         </Box>
     );

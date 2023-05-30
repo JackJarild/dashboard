@@ -21,6 +21,7 @@ import {
   MenuDivider,
   MenuItem,
   MenuList,
+  useColorMode,
 } from '@chakra-ui/react';
 import {
   FiHome,
@@ -31,23 +32,30 @@ import {
   FiMenu,
   FiBell,
   FiChevronDown,
-  FiSearch
+  FiSearch,
+  FiSun,
+  FiMoon,
+  FiArchive,
+  FiShoppingCart,
+  FiFileText
 } from 'react-icons/fi';
 import { ImSearch } from 'react-icons/im';
 import { IconType } from 'react-icons';
 import { ReactText } from 'react';
 import { useLogout } from '@/lib/auth';
+import { Link as ReactRouterLink } from 'react-router-dom'
 
 interface LinkItemProps {
-  name: string;
-  icon: IconType;
+  name: string
+  icon: IconType
+  route: string
 }
 const LinkItems: Array<LinkItemProps> = [
-  { name: 'Home', icon: FiHome },
-  { name: 'Trending', icon: FiTrendingUp },
-  { name: 'Explore', icon: FiCompass },
-  { name: 'Favourites', icon: FiStar },
-  { name: 'Settings', icon: FiSettings },
+  { name: 'Home', icon: FiHome, route: '/home' },
+  { name: 'Order', icon: FiShoppingCart, route: '/order' },
+  { name: 'Reports', icon: FiFileText, route: '/reports' },
+  { name: 'Archive', icon: FiArchive, route: '/archive' },
+  { name: 'Settings', icon: FiSettings, route: '/settings' },
 ];
 
 export const SidebarWithHeader = ({
@@ -128,6 +136,7 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
         <NavItem
           key={link.name}
           icon={link.icon}
+          route={link.route}
           _hover={{ bg: 'tfogreen.500', color: 'white' }}
         >
           {/* <Text as={'span'} bgGradient={'linear(to-r, #F4C8E1, #DB4D9E)'} bgClip={'text'}>{link.name}</Text> */}
@@ -141,10 +150,11 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
 interface NavItemProps extends FlexProps {
   icon: IconType;
   children: ReactNode;
+  route: string
 }
-const NavItem = ({ icon, children, ...rest }: NavItemProps) => {
+const NavItem = ({ icon, children, route, ...rest }: NavItemProps) => {
   return (
-    <Link href="#" style={{ textDecoration: 'none' }} _focus={{ boxShadow: 'none' }}>
+    <Link as={ReactRouterLink} to={route} style={{ textDecoration: 'none' }} _focus={{ boxShadow: 'none' }}>
       <Flex
         align="center"
         p="4"
@@ -178,6 +188,7 @@ interface MobileProps extends FlexProps {
 }
 const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
   const logout = useLogout({});
+  const { colorMode, toggleColorMode } = useColorMode()
 
   return (
     <Flex
@@ -213,10 +224,42 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
       </Flex>
       <HStack spacing={{ base: '0', md: '6' }}>
         <IconButton
+          size={'lg'}
+          variant={'ghost'}
+          aria-label='toggle darkmode'
+          icon={colorMode === 'dark' ? <FiSun /> : <FiMoon />}
+          onClick={toggleColorMode}
+        />
+        <IconButton
           size="lg"
           variant="ghost"
           aria-label="open menu"
-          icon={<FiBell />}
+          pos={'relative'}
+          display={'flex'}
+          flexDir={'column'}
+          alignItems={'center'}
+          icon={
+            <>
+              <FiBell />
+              <Flex
+                borderRadius={9999}
+                align={'center'}
+                justify={'center'}
+                shrink={0}
+                grow={0}
+                fontSize={'xs'}
+                top={0.5}
+                right={0.6}
+                bg={'tfopink.600'}
+                color={'white'}
+                pos={'absolute'}
+                w={5}
+                h={5}
+                >
+                3
+              </Flex>
+            </>
+          }
         />
         <Flex alignItems={'center'}>
           <Menu>

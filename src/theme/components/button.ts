@@ -36,6 +36,6 @@ export const Button = defineStyleConfig({
   defaultProps: {
     size: 'md',
     variant: 'primary',
-    //colorScheme: 'tfogreen'
+    colorScheme: 'tfogreen'
   },
 })

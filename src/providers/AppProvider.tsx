@@ -1,19 +1,13 @@
 import theme from '@/theme';
-import { Box, ChakraProvider, CircularProgress, extendTheme, useMediaQuery, type ThemeConfig, ColorModeScript, Flex, Heading, Text, Button } from '@chakra-ui/react';
+import { Box, ChakraProvider, CircularProgress, ColorModeScript, Flex, Heading, Text, Button } from '@chakra-ui/react';
 import * as React from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
 // import { HelmetProvider } from 'react-helmet-async';
-// import { QueryClientProvider } from 'react-query';
-// import { ReactQueryDevtools } from 'react-query/devtools';
-import { BrowserRouter } from 'react-router-dom';
+import { RouterProvider } from 'react-router-dom';
 import { queryClient } from '@/lib/react-query';
 import { QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
-import { AuthLoader } from '@/lib/auth';
-import { Login } from '@/features/auth/routes/Login';
-
-// import { AuthProvider } from '@/lib/auth';
-// import { queryClient } from '@/lib/react-query';
+import { router } from '@/routes';
 
 const ErrorFallback = () => {
     return (
@@ -46,12 +40,7 @@ const ErrorFallback = () => {
     );
 };
 
-type AppProviderProps = {
-    children: React.ReactNode;
-};
-
-export const AppProvider = ({ children }: AppProviderProps) => {
-
+export const AppProvider = () => {
     return (
         <React.Suspense
             fallback={
@@ -71,22 +60,7 @@ export const AppProvider = ({ children }: AppProviderProps) => {
                     {process.env.NODE_ENV !== 'test' && <ReactQueryDevtools />}
                     <ColorModeScript initialColorMode={theme.config.initialColorMode} />
                     <ChakraProvider theme={theme}>
-                        <AuthLoader
-                            renderLoading={() => <Box
-                                w='100vw'
-                                h="100vh"
-                                display="flex"
-                                justifyContent="center"
-                                alignItems="center"
-                            >
-                                <CircularProgress isIndeterminate color='green.300' />
-                            </Box>}
-                        // renderUnauthenticated={() => <Login />}
-                        >
-
-                            <BrowserRouter>{children}</BrowserRouter>
-
-                        </AuthLoader>
+                        <RouterProvider router={router} />
                     </ChakraProvider>
                 </QueryClientProvider>
             </ErrorBoundary>

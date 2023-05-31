@@ -30,12 +30,15 @@ export const Button = defineStyleConfig({
       // bg: 'gray',
       // color: 'black',
       colorScheme: 'gray'
-    }
+    },
+    // ghost: {
+    //   color: 'tfogreen.600'
+    // }
   },
   // The default size and variant values
   defaultProps: {
     size: 'md',
     variant: 'primary',
-    colorScheme: 'tfogreen'
+    colorScheme: 'green'
   },
 })

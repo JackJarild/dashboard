@@ -4,6 +4,7 @@ import { lazyImport } from '@/utils/lazyImport';
 const { Login } = lazyImport(() => import('@/features/auth'), 'Login');
 const { MainLayout } = lazyImport(() => import('@/components/Layout'), 'MainLayout');
 const { Home } = lazyImport(() => import('@/features/home'), 'Home');
+const { ErrorPage } = lazyImport(() => import('@/features/home'), 'ErrorPage');
 const { NotFound } = lazyImport(() => import('@/features/home'), 'NotFound');
 const { Settings } = lazyImport(() => import('@/features/settings'), 'Settings');
 const { Order } = lazyImport(() => import('@/features/order'), 'Order');
@@ -12,22 +13,23 @@ export const router = createBrowserRouter(
   createRoutesFromElements(
     <>
       <Route
-        path="/"
+        path="/login"
         element={<Login />}
-        errorElement={<Navigate to='/' />}
+      //errorElement={<Navigate to='/' />}
       />
 
       <Route
         element={<MainLayout />}
-      //errorElement={<NotFound />}
+        errorElement={<ErrorPage />}
       >
-        <Route errorElement={<NotFound />}>
-          {/* <Route index={true} errorElement={<p>Test</p>} /> */}
-          <Route path="home" element={<Home isFirstMount={true} />} />
+        <Route errorElement={<ErrorPage />}>
+          <Route path="/" element={<Home isFirstMount={true} />} />
           <Route path="order" element={<Order />} />
           <Route path="settings" element={<Settings />} />
+          <Route path='*' element={<NotFound />} />
         </Route>
       </Route>
+
     </>
   )
 )

@@ -46,7 +46,7 @@ interface LinkItemProps {
   route: string
 }
 const LinkItems: Array<LinkItemProps> = [
-  { name: 'Home', icon: FiHome, route: '/home' },
+  { name: 'Home', icon: FiHome, route: '/' },
   { name: 'Order', icon: FiShoppingCart, route: '/order' },
   { name: 'Reports', icon: FiFileText, route: '/reports' },
   { name: 'Archive', icon: FiArchive, route: '/archive' },
@@ -299,7 +299,7 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
               <MenuItem>Billing</MenuItem>
               <MenuDivider />
               <MenuItem onClick={() => logout.mutate({}, {
-                onSuccess: () => navigate('/')
+                onSuccess: () => navigate('/login')
               })}>Sign out</MenuItem>
             </MenuList>
           </Menu>

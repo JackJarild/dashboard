@@ -28,7 +28,7 @@ export const LoginForm = () => {
       <Form<LoginCredentials, typeof schema>
         onSubmit={async (values) => {
           login.mutate(values, {
-            onSuccess: () => navigate('/home'),
+            onSuccess: () => navigate('/'),
             onError: () => toast({
               title: 'Error logging in',
               status: 'error',

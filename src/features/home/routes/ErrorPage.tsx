@@ -1,7 +1,7 @@
 import { Box, Heading, Text, Button } from '@chakra-ui/react';
 import { useNavigate, useRouteError } from 'react-router-dom';
 
-export const NotFound = () => {
+export const ErrorPage = () => {
   const navigate = useNavigate();
   const error: unknown = useRouteError();
   console.error(error);
@@ -14,11 +14,15 @@ export const NotFound = () => {
           size="4xl"
           bgGradient="linear(to-r, tfogreen.400, tfogreen.600)"
           backgroundClip="text">
-          404
+          Oops!
         </Heading>
         <Text fontSize="3xl" mt={3} mb={2}>
-          Page not found.
+          Sorry, an unexpected error has occurred.
         </Text>
+        <Text fontSize={'2xl'} color={'gray.500'} mb={6}>
+          {error.statusText || error.message}
+        </Text>
+
         <Button
           colorScheme="tfogreen"
           bgGradient="linear(to-r, tfogreen.400, tfogreen.500)"

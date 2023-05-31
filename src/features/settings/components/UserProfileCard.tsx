@@ -38,7 +38,7 @@ import {
             <FormLabel>User Icon</FormLabel>
             <Stack direction={['column', 'row']} spacing={6}>
               <Center>
-                <Avatar size="xl" src="https://bit.ly/sage-adebayo">
+                <Avatar size="xl" src="">
                   <AvatarBadge
                     as={IconButton}
                     size="sm"

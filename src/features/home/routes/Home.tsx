@@ -4,6 +4,7 @@ import { ReportPackageCard } from "@/components/ReportPackageCard";
 import { Box, Heading, Highlight, SimpleGrid, chakra, useTheme, Text, Flex } from "@chakra-ui/react"
 import { motion } from "framer-motion";
 import { useState } from "react";
+import { Outlet } from "react-router-dom";
 
 
 const content = (isFirstMount) => ({
@@ -44,9 +45,9 @@ export const Home = ({ isFirstMount }) => {
                     ToFindOut
                 </motion.h1> */}
 
-                <MainLayout>
+              
+           
                     <BasicStatistics />
-                </MainLayout>
             </motion.section>
         </>
     )

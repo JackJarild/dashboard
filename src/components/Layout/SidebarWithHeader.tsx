@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react';
+import { ReactNode } from 'react';
 import {
   IconButton,
   Avatar,
@@ -25,14 +25,10 @@ import {
 } from '@chakra-ui/react';
 import {
   FiHome,
-  FiTrendingUp,
-  FiCompass,
-  FiStar,
   FiSettings,
   FiMenu,
   FiBell,
   FiChevronDown,
-  FiSearch,
   FiSun,
   FiMoon,
   FiArchive,
@@ -41,9 +37,8 @@ import {
 } from 'react-icons/fi';
 import { ImSearch } from 'react-icons/im';
 import { IconType } from 'react-icons';
-import { ReactText } from 'react';
 import { useLogout } from '@/lib/auth';
-import { Link as ReactRouterLink } from 'react-router-dom'
+import { NavLink, useNavigate } from 'react-router-dom'
 
 interface LinkItemProps {
   name: string
@@ -154,7 +149,13 @@ interface NavItemProps extends FlexProps {
 }
 const NavItem = ({ icon, children, route, ...rest }: NavItemProps) => {
   return (
-    <Link as={ReactRouterLink} to={route} style={{ textDecoration: 'none' }} _focus={{ boxShadow: 'none' }}>
+    <Link
+      as={NavLink}
+      to={route}
+      style={{ textDecoration: 'none' }}
+      _focus={{ boxShadow: 'none' }}
+      _activeLink={{ color: 'tfopink.600' }}
+    >
       <Flex
         align="center"
         p="4"
@@ -187,9 +188,10 @@ interface MobileProps extends FlexProps {
   onOpen: () => void;
 }
 const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
-  const logout = useLogout({});
+  const logout = useLogout();
   const { colorMode, toggleColorMode } = useColorMode()
-
+  const navigate = useNavigate();
+  
   return (
     <Flex
       ml={{ base: 0, md: 60 }}
@@ -255,7 +257,7 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
                 pos={'absolute'}
                 w={5}
                 h={5}
-                >
+              >
                 3
               </Flex>
             </>
@@ -296,7 +298,9 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
               <MenuItem>Settings</MenuItem>
               <MenuItem>Billing</MenuItem>
               <MenuDivider />
-              <MenuItem onClick={() => logout.mutate({})}>Sign out</MenuItem>
+              <MenuItem onClick={() => logout.mutate({}, {
+                onSuccess: () => navigate('/')
+              })}>Sign out</MenuItem>
             </MenuList>
           </Menu>
         </Flex>

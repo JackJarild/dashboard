@@ -1,13 +1,10 @@
-import { useNavigate } from 'react-router-dom';
-import { Layout } from '../components/Layout';
+import { LoginLayout } from '../components/LoginLayout';
 import { LoginForm } from '../components/LoginForm';
 
 export const Login = () => {
-  const navigate = useNavigate();
-
   return (
-    <Layout>
-      <LoginForm onSuccess={() => navigate('/home')} />
-    </Layout>
+    <LoginLayout>
+      <LoginForm />
+    </LoginLayout>
   );
 };

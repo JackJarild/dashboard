@@ -7,7 +7,7 @@ type LayoutProps = {
     children: React.ReactNode
 }
 
-export const Layout = ({ children }: LayoutProps) => {
+export const LoginLayout = ({ children }: LayoutProps) => {
     return (
         <>
             <Stack minH={'100vh'} direction={{ base: 'column', md: 'row' }}>

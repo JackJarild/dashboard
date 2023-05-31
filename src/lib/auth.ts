@@ -1,75 +1,42 @@
 import {
-    loginWithEmailAndPassword,
-    //getUser,
-    registerWithEmailAndPassword,
+    getUser,
     UserResponse,
     LoginCredentials,
-    RegisterCredentialsDTO,
-    AuthUser,
+    loginWithEmailAndPassword,
 } from '@/features/auth';
 import { storage } from '@/utils/storage';
-import { configureAuth } from 'react-query-auth';
+import { configureAuth } from './authConfig';
 
-
-async function handleUserResponse(data: UserResponse) {
-    //const { jwt, user } = data;
-    storage.setToken(data.token);
-    const user: AuthUser = {
-        email: data.email,
-        firstName: data.firstName,
-        id: data.id,
-        lastName: data.lastName,
-        bio: '',
-        role: 'ADMIN'
-    }
+const handleUserResponse = async (user: UserResponse) => {
+    storage.setUser(user)
+    storage.setToken(user.token)
     return user;
 }
 
-async function userFn() {
-    if (storage.getToken()) {
-        //const data = await getUser();
-        console.log('loadUser called')
-        const user: AuthUser = {
-            email: 'jack.jarild@tofindout.se',
-            firstName: 'Jack',
-            id: 1,
-            lastName: 'Järild',
-            bio: '',
-            role: 'ADMIN'
-        }
-        return user;
-        //return data;
+const userFn = async (): Promise<UserResponse | null> => {
+    if (storage.getUser()) {
+        const { id } = storage.getUser()
+        const user = await getUser(id)
+        return user
     }
-    return null;
+
+    return null
 }
 
-async function loginFn(data: LoginCredentials) {
+const loginFn = async (data: LoginCredentials) => {
     const response = await loginWithEmailAndPassword(data);
     const user = await handleUserResponse(response);
     return user;
 }
 
-async function registerFn(data: RegisterCredentialsDTO) {
-    const response = await registerWithEmailAndPassword(data);
-    const user = await handleUserResponse(response);
-    return user;
-}
-
-async function logoutFn() {
+const logoutFn = async () => {
     storage.clearToken();
-    window.location.assign(window.location.origin as unknown as string);
+    storage.clearUser();
 }
 
-
-// export const { AuthProvider, useAuth } = initReactQueryAuth<
-//     AuthUser | null,
-//     unknown,
-//     LoginCredentialsDTO
-// >(authConfig);
-export const { useUser, useLogin, useRegister, useLogout, AuthLoader } =
-  configureAuth({
-    userFn,
-    loginFn,
-    registerFn,
-    logoutFn,
-  });
+export const { useUser, useLogin, useLogout } =
+    configureAuth<UserResponse | null, any, LoginCredentials>({
+        userFn,
+        loginFn,
+        logoutFn,
+    });

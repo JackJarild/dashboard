@@ -1,35 +1,23 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import * as z from 'zod';
-
-//import { Button } from '@/components/Elements';
 import { Form, InputField, InputGroupField } from '@/components/Form';
-import { Box, Heading, Icon, InputRightElement, Stack,  useColorModeValue } from '@chakra-ui/react';
+import { Box, Icon, InputRightElement, Stack, useColorModeValue, useToast } from '@chakra-ui/react';
 import { useLogin } from '@/lib/auth';
 import { FiEye, FiEyeOff } from 'react-icons/fi';
 import { LoginCredentials } from '../api/login';
 import { useState } from 'react';
-import { useForm } from 'react-hook-form';
 import { Button } from '@/components/Elements';
-//import { useAuth } from '@/lib/auth';
 
 const schema = z.object({
   email: z.string().min(1, 'Required'),
   password: z.string().min(1, 'Required'),
 });
 
-// type LoginValues = {
-//   email: string;
-//   password: string;
-// };
-
-type LoginFormProps = {
-  onSuccess: () => void
-};
-
-
-export const LoginForm = ({ onSuccess }: LoginFormProps) => {
-  const login = useLogin();
-  const [showPassword, setShowPassword] = useState(false);
+export const LoginForm = () => {
+  const login = useLogin()
+  const navigate = useNavigate()
+  const toast = useToast()
+  const [showPassword, setShowPassword] = useState(false)
 
   return (
     <Box
@@ -39,8 +27,14 @@ export const LoginForm = ({ onSuccess }: LoginFormProps) => {
       p={8}>
       <Form<LoginCredentials, typeof schema>
         onSubmit={async (values) => {
-          login.mutate(values)
-          onSuccess()
+          login.mutate(values, {
+            onSuccess: () => navigate('/home'),
+            onError: () => toast({
+              title: 'Error logging in',
+              status: 'error',
+              isClosable: true,
+            })
+          })
         }}
         schema={schema}
       >
@@ -79,9 +73,9 @@ export const LoginForm = ({ onSuccess }: LoginFormProps) => {
               <Button
                 isLoading={login.isLoading}
                 type="submit"
-                //bgColor='primary'
-                // bgColor={'tfogreen.500'}
-                // _hover={{ bgColor: 'tfogreen.300' }}
+              //bgColor='primary'
+              // bgColor={'tfogreen.500'}
+              // _hover={{ bgColor: 'tfogreen.300' }}
               //bgGradient={'linear(to-r, #DB4D9E, #AC42DB, #2D1D8F)'}
               // _hover={{
               //   bgGradient: 'linear(to-r, #F4C8E1, #DB4D9E)',

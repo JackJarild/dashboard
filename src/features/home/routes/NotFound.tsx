@@ -1,12 +1,12 @@
-import { MainLayout } from '@/components/Layout';
 import { Box, Heading, Text, Button } from '@chakra-ui/react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useRouteError } from 'react-router-dom';
 
 export const NotFound = () => {
   const navigate = useNavigate();
+  const error: unknown = useRouteError();
+  console.error(error);
 
   return (
-    <MainLayout>
       <Box textAlign="center" py={10} px={6}>
         <Heading
           display="inline-block"
@@ -14,13 +14,13 @@ export const NotFound = () => {
           size="4xl"
           bgGradient="linear(to-r, tfogreen.400, tfogreen.600)"
           backgroundClip="text">
-          404
+          Oops!
         </Heading>
         <Text fontSize="3xl" mt={3} mb={2}>
-          Page Not Found
+          Sorry, an unexpected error has occurred.
         </Text>
         <Text fontSize={'2xl'} color={'gray.500'} mb={6}>
-          The page you're looking for does not seem to exist
+          {error.statusText || error.message}
         </Text>
 
         <Button
@@ -33,6 +33,5 @@ export const NotFound = () => {
           Go to Home
         </Button>
       </Box>
-    </MainLayout>
   )
 }

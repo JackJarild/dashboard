@@ -28,9 +28,9 @@ export const ErrorPage = () => {
           bgGradient="linear(to-r, tfogreen.400, tfogreen.500)"
           color="white"
           variant="solid"
-          onClick={() => navigate('/')}
+          onClick={() => navigate('/login')}
         >
-          Go to Home
+          Go to login
         </Button>
       </Box>
   )

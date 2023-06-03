@@ -18,10 +18,11 @@ interface ReportPackageCardProps {
     reportPackage: string
     description: string
     daysToDeliver: number
+    onClick: () => void
 }
 
 export const ReportPackageCard = (props: ReportPackageCardProps) => {
-    const { reportPackage, description, daysToDeliver } = props
+    const { reportPackage, description, daysToDeliver, onClick } = props
 
     return (
         <Box
@@ -29,7 +30,9 @@ export const ReportPackageCard = (props: ReportPackageCardProps) => {
             bg={useColorModeValue('white', 'gray.800')}
             boxShadow={'2xl'}
             rounded={'md'}
-            overflow={'hidden'}>
+            overflow={'hidden'}
+            display={'grid'}
+        >
             <HStack justify={'end'} w={'full'}>
                 <IconButton
                     size={'lg'}
@@ -48,7 +51,7 @@ export const ReportPackageCard = (props: ReportPackageCardProps) => {
                 color={useColorModeValue('gray.800', 'white')}
                 align={'center'}>
                 <Text
-                    fontSize={'sm'}
+                    fontSize={'md'}
                     fontWeight={500}
                     bg={useColorModeValue('green.50', 'green.900')}
                     p={2}
@@ -57,6 +60,7 @@ export const ReportPackageCard = (props: ReportPackageCardProps) => {
                     rounded={'full'}>
                     {reportPackage}
                 </Text>
+
                 <Text color={'gray.500'}>Leverans inom</Text>
                 <Stack direction={'row'} align={'center'} justify={'center'}>
                     <Text fontSize={'6xl'} fontWeight={800}>
@@ -66,9 +70,13 @@ export const ReportPackageCard = (props: ReportPackageCardProps) => {
                 </Stack>
             </Stack>
 
-            <Box bg={useColorModeValue('gray.50', 'gray.900')} px={6} py={10}>
+            <Box bg={useColorModeValue('gray.50', 'gray.900')} px={6} py={10} mt={'auto'}>
+                <Box>
+                    <Text textAlign={'center'} color={'gray.500'}>{description}</Text>
+                </Box>
+
                 <Button
-                    //mt={10}
+                    mt={10}
                     w={'full'}
                     bg={'green.400'}
                     color={'white'}
@@ -84,8 +92,10 @@ export const ReportPackageCard = (props: ReportPackageCardProps) => {
                     }}
                     _focus={{
                         bg: 'green.500',
-                    }}>
-                    Beställ rapport
+                    }}
+                    onClick={onClick}
+                >
+                    Välj rapport paket
                 </Button>
             </Box>
         </Box>

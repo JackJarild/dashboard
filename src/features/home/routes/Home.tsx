@@ -195,7 +195,7 @@ const BasicStatistics = () => {
                 <StatsCard title={'Pågående rapporter'} stat={'30st'} />
                 <StatsCard title={'Inväntar godkännande'} stat={'2st'} />
             </SimpleGrid>
-            <SimpleGrid columns={{ base: 1, md: 3 }} spacing={{ base: 5, lg: 8 }}>
+            {/* <SimpleGrid columns={{ base: 1, md: 3 }} spacing={{ base: 5, lg: 8 }}>
                 <ReportPackageCard key={1} daysToDeliver={5} description="Beskrivning" reportPackage="Grund" />
                 <ReportPackageCard key={2} daysToDeliver={10} description="Test" reportPackage="Grund + cv" />
                 <ReportPackageCard key={3} daysToDeliver={14}
@@ -203,7 +203,7 @@ const BasicStatistics = () => {
                     reportPackage="Fördjupad" />
                 <ReportPackageCard key={4} daysToDeliver={2} description="" reportPackage="Utland" />
                 <ReportPackageCard key={5} daysToDeliver={30} description="" reportPackage="Fördjupad + en utbildning" />
-            </SimpleGrid>
+            </SimpleGrid> */}
         </Box>
     );
 }

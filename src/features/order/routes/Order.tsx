@@ -1,9 +1,11 @@
 import { ContentLayout } from "@/components/Layout";
-import { Box, Center, Flex, Spacer, Step, StepDescription, StepIcon, StepIndicator, StepNumber, StepSeparator, StepStatus, StepTitle, Stepper, useSteps, useToast } from "@chakra-ui/react";
+import { Box, Center, Flex, IconButton, Spacer, Step, StepDescription, StepIcon, StepIndicator, StepNumber, StepSeparator, StepStatus, StepTitle, Stepper, useSteps, useToast } from "@chakra-ui/react";
 import { useState } from "react";
 import { ReportPackages } from "../components/ReportPackages";
 import { ReportPackageCard } from "@/components/ReportPackageCard";
 import { OrderForm } from "../components/OrderForm";
+import { Companies } from "../components/Companies";
+import { FiArrowLeft, FiArrowLeftCircle } from "react-icons/fi";
 
 
 const steps = [
@@ -37,21 +39,36 @@ export const Order = () => {
         size: 'lg',
     }
 
+    const handleClick = () => {
+        setActiveStep(activeStep + 1)
+    }
+
     return (
         <ContentLayout>
             <CustomStepper {...stepProps} />
-        
-                {stepProps.steps.filter(step => step.index === activeStep).map(step => (
-                    <>
-                        {
-                            activeStep === 0 ? <Box></Box>
-                                : activeStep === 1 ? <ReportPackages />
-                                    : activeStep === 2 ? <OrderForm />
-                                        : null
-                        }
-                    </>
-                ))}
-           
+            {activeStep !== 0 &&
+                <IconButton
+                    fontSize={'3xl'}
+                    mt={10}
+                    variant={'ghost'}
+                    aria-label='Go back'
+                    icon={<FiArrowLeft />}
+                    onClick={() => setActiveStep(activeStep - 1)} />
+            }
+            <Box mt={10}>
+                {activeStep === 0 &&
+                    <Companies onClick={handleClick} />
+                }
+
+                {activeStep === 1 &&
+                    <ReportPackages onClick={handleClick} />
+                }
+
+                {activeStep === 2 &&
+                    <OrderForm />
+                }
+            </Box>
+
         </ContentLayout>
     )
 }
@@ -83,14 +100,14 @@ export const CustomStepper = ({
 }: CustomStepperProps) => {
 
     return (
-        <Stepper 
-        index={activeStep} 
-        size={size} 
-        orientation={orientation === "vertical" ? 'vertical' : undefined} 
-        gap='0' 
-        minH={minH} 
-        minW={minW}
-        colorScheme="tfopink"
+        <Stepper
+            index={activeStep}
+            size={size}
+            orientation={orientation === "vertical" ? 'vertical' : undefined}
+            gap='0'
+            minH={minH}
+            minW={minW}
+            colorScheme="tfopink"
         >
             {steps.map((step, index) => (
                 <>

@@ -1,7 +1,8 @@
-import { FiArchive, FiArrowDown, FiArrowUp } from 'react-icons/fi';
+import { FiArchive, FiArrowDown, FiSearch } from 'react-icons/fi';
 import * as React from 'react';
-import { Icon, TableContainer, Table as ChakraTable, Thead, Tr, Th, Tbody, Td, IconButton, useBoolean } from '@chakra-ui/react';
+import { Icon, TableContainer, Table as ChakraTable, Thead, Tr, Th, Tbody, Td, IconButton, useBoolean, Stack, Box, HStack, Text, InputLeftElement, InputGroup, Input } from '@chakra-ui/react';
 import { motion } from 'framer-motion';
+import { InputGroupField } from '@/components/Form';
 
 type TableColumn<Entry> = {
     title: string
@@ -29,92 +30,105 @@ export const Table = <Entry extends { id?: number | string, orderId?: number }>(
         );
     }
 
-    // const handleSortColumn = (column: TableColumn<Entry>, direction: 'asc' | 'desc'): void => {
-
-    // }
-
-    const handleSortColumns = (title: string): void => {
-        const foundColumn = columns.find(x => x.title === title)
-        if (foundColumn?.direction) {
-            setDirection(foundColumn.direction === 'desc' ? 'asc' : 'desc')
-        } else {
-            setDirection(direction === 'desc' ? 'asc' : 'desc')
-        }
-    }
-
     return (
-        <TableContainer>
-            <ChakraTable
-                w={'full'}
-                bg={'white'}
-            >
-                <Thead>
-                    <Tr>
-                        {columns.map((column, index) => (
-                            <Th
-                                key={column.title + index}
-                                scope="col"
-                                px={6}
-                                py={3}
-                                fontSize={'xs'}
-                                textAlign={'left'}
-                                textTransform={'uppercase'}
-                                //letterSpacing={'wider'}
-                                fontWeight={'medium'}
-                            //className="text-gray-500 uppercase"
-                            >
-                                {column.title}
-                                {/* <IconButton
-                                    size={'md'}
-                                    variant={'ghost'}
-                                    aria-label='toggle darkmode'
-                                    ml={2}
-                                    icon={
-                                        direction === 'desc' || !direction ?
-                                            <FiArrowDown />
-                                            : <FiArrowUp />}
-                                    onClick={() => handleSortColumns(column.title)}
-                                /> */}
-
-                                <IconButton
-                                    size={'md'}
-                                    variant={'ghost'}
-                                    aria-label='toggle darkmode'
-                                    ml={1}
-                                    onClick={setSortDesc.toggle}
-                                    icon={
-                                        <motion.div
-                                            animate={{ rotate: sortDesc ? [120, 180] : 0 }}
-                                        >
-                                            <FiArrowDown />
-                                        </motion.div>
-                                    }
-                                />
-
-                            </Th>
-                        ))}
-                    </Tr>
-                </Thead>
-                <Tbody>
-                    {data.map((entry, entryIndex) => (
-                        <Tr
-                            key={entry?.id || entry?.orderId || entryIndex}
-                            className="odd:bg-white even:bg-gray-100"
-                        //onClick={}
-                        >
-                            {columns.map(({ Cell, field, title }, columnIndex) => (
-                                <Td
-                                    key={title + columnIndex}
-                                    className="px-6 py-4 text-sm font-medium text-gray-900 whitespace-nowrap"
+        <Box boxShadow={'sm'} rounded={'lg'} bg={'white'} overflow={'hidden'}>
+            <Stack gap={5}>
+                <TableHeader />
+                <TableContainer>
+                    <ChakraTable
+                        w={'full'}
+                        bg={'white'}
+                    >
+                        <Thead>
+                            <Tr borderColor={'gray.200'}>
+                                {columns.map((column, index) => (
+                                    <Th
+                                        key={column.title + index}
+                                        scope="col"
+                                        px={6}
+                                        py={3}
+                                        fontSize={'xs'}
+                                        textAlign={'left'}
+                                        //textTransform={'uppercase'}
+                                        fontWeight={'medium'}
+                                        borderColor={'gray.100'}
+                                        bg={'gray.50'}
+                                    >
+                                        {column.title}
+                                        <IconButton
+                                            size={'md'}
+                                            variant={'ghost'}
+                                            aria-label='toggle darkmode'
+                                            ml={1}
+                                            onClick={setSortDesc.toggle}
+                                            icon={
+                                                <motion.div
+                                                    animate={{ rotate: sortDesc ? [120, 180] : 0 }}
+                                                >
+                                                    <FiArrowDown />
+                                                </motion.div>
+                                            }
+                                        />
+                                    </Th>
+                                ))}
+                            </Tr>
+                        </Thead>
+                        <Tbody>
+                            {data.map((entry, entryIndex) => (
+                                <Tr
+                                    key={entry?.id || entry?.orderId || entryIndex}
+                                    className="odd:bg-white even:bg-gray-100"
+                                //onClick={}
                                 >
-                                    {Cell ? <Cell entry={entry} /> : entry[field]}
-                                </Td>
+                                    {columns.map(({ Cell, field, title }, columnIndex) => (
+                                        <Td
+                                            key={title + columnIndex}
+                                            className="px-6 py-4 text-sm font-medium text-gray-900 whitespace-nowrap"
+                                        >
+                                            {Cell ? <Cell entry={entry} /> : entry[field]}
+                                        </Td>
+                                    ))}
+                                </Tr>
                             ))}
-                        </Tr>
-                    ))}
-                </Tbody>
+                        </Tbody>
+                    </ChakraTable>
+                </TableContainer >
+                <TableFooter />
+            </Stack>
+        </Box>
+    )
+}
 
-            </ChakraTable>
-        </TableContainer >
+
+const TableHeader = () => {
+    return (
+        <Box px={6} pt={5} bg={'white'}>
+            <HStack justify={'space-between'} gap={2}>
+                <Text size={'lg'} fontWeight={'medium'}>Archive</Text>
+                <InputGroup
+                    w={'100%'}
+                    display={'flex'}
+                    pos={'relative'}
+                    isolation={'isolate'}
+                    maxW={'xs'}
+                >
+                    <InputLeftElement h={'full'}>
+                        <Icon as={FiSearch} />
+                    </InputLeftElement>
+                    <Input type={'text'} placeholder='Search' />
+                </InputGroup>
+            </HStack>
+        </Box>
+    )
+}
+
+const TableFooter = () => {
+    return (
+        <Box px={6} pb={6} m={0} bg={'white'}>
+            <HStack justify={'space-between'} align={'center'} gap={3}>
+                <Text size={'sm'}>Showing 1 to 5 of 42 results</Text>
+                
+            </HStack>
+        </Box>
     )
 }

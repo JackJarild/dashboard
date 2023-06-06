@@ -22,6 +22,7 @@ import {
   MenuItem,
   MenuList,
   useColorMode,
+  Image
 } from '@chakra-ui/react';
 import {
   FiHome,
@@ -39,6 +40,9 @@ import { ImSearch } from 'react-icons/im';
 import { IconType } from 'react-icons';
 import { useLogout } from '@/lib/auth';
 import { NavLink, useNavigate } from 'react-router-dom'
+import logo from '../../assets/liten_logga.png'
+import backgroundLight from '../../assets/litenbakgrund_light.jpg'
+import backgroundDark from '../../assets/litenbakgrund_dark.jpg'
 
 interface LinkItemProps {
   name: string
@@ -59,8 +63,10 @@ export const SidebarWithHeader = ({
   children: ReactNode;
 }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const backgroundImage = useColorModeValue(backgroundLight, backgroundDark)
+
   return (
-    <Box minH="100vh" bg={useColorModeValue('gray.100', 'gray.900')}>
+    <Box minH="100vh" /*bg={useColorModeValue('gray.100', 'gray.900')}*/ /*bgImage={background} */  bgImage={backgroundImage} bgSize="cover" bgRepeat="no-repeat">
       <SidebarContent
         onClose={() => onClose}
         display={{ base: 'none', md: 'block' }}
@@ -113,7 +119,7 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
           ToFindOut
         </Text>
         <CloseButton display={{ base: 'flex', md: 'none' }} onClick={onClose} /> */}
-        <Text fontSize="2xl" fontFamily="monospace" fontWeight="bold">
+        {/* <Text fontSize="2xl" fontFamily="monospace" fontWeight="bold">
           TO
         </Text>
         <Text fontSize="2xl" fontFamily="monospace">
@@ -124,7 +130,9 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
         </Text>
         <Text fontSize="2xl" fontFamily="monospace" fontWeight="bold">
           UT
-        </Text>
+        </Text> */}
+      
+        <Image src={logo}  alt="logo" />
         <CloseButton display={{ base: 'flex', md: 'none' }} onClick={onClose} />
       </Flex>
       {LinkItems.map((link) => (

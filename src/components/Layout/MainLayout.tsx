@@ -9,7 +9,7 @@ export const MainLayout = () => {
     const user = useUser()
 
     if(!user?.data) {
-        return <Navigate to='/' />
+        return <Navigate to='/login' />
     }
 
     return (

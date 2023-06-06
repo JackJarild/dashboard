@@ -22,6 +22,7 @@ import {
   MenuItem,
   MenuList,
   useColorMode,
+  chakra,
 } from '@chakra-ui/react';
 import {
   FiHome,
@@ -39,6 +40,7 @@ import { ImSearch } from 'react-icons/im';
 import { IconType } from 'react-icons';
 import { useLogout } from '@/lib/auth';
 import { NavLink, useNavigate } from 'react-router-dom'
+import { Logo } from '../Elements';
 
 interface LinkItemProps {
   name: string
@@ -60,7 +62,10 @@ export const SidebarWithHeader = ({
 }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   return (
-    <Box minH="100vh" bg={useColorModeValue('gray.100', 'gray.900')}>
+    <Box
+      minH="100vh"
+      bg={useColorModeValue('gray.100', 'gray.900')}
+    >
       <SidebarContent
         onClose={() => onClose}
         display={{ base: 'none', md: 'block' }}
@@ -101,30 +106,8 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
       pos="fixed"
       h="full"
       {...rest}>
-      {/* <Flex h="20" alignItems="center" mx="8" justifyContent="space-between">
-        <Text fontSize="2xl" fontFamily="monospace" fontWeight="bold">
-          <Icon as={ImSearch} color={'green.500'} boxSize={5}/> ToFindOut
-        </Text>
-        <CloseButton display={{ base: 'flex', md: 'none' }} onClick={onClose} />
-      </Flex> */}
       <Flex h="20" alignItems="center" mx="8">
-        {/* <Icon as={ImSearch} color={'green.500'} boxSize={5} />
-        <Text fontSize="2xl" fontFamily="monospace" fontWeight="bold">
-          ToFindOut
-        </Text>
-        <CloseButton display={{ base: 'flex', md: 'none' }} onClick={onClose} /> */}
-        <Text fontSize="2xl" fontFamily="monospace" fontWeight="bold">
-          TO
-        </Text>
-        <Text fontSize="2xl" fontFamily="monospace">
-          FIND
-        </Text>
-        <Text as={'span'} fontSize="2xl" mt={3} ml={-1}>
-          <Icon as={ImSearch} color={'tfogreen.500'} transform={'rotateZ(85deg)'} />
-        </Text>
-        <Text fontSize="2xl" fontFamily="monospace" fontWeight="bold">
-          UT
-        </Text>
+        <Logo />
         <CloseButton display={{ base: 'flex', md: 'none' }} onClick={onClose} />
       </Flex>
       {LinkItems.map((link) => (
@@ -134,7 +117,6 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
           route={link.route}
           _hover={{ bg: 'tfogreen.500', color: 'white' }}
         >
-          {/* <Text as={'span'} bgGradient={'linear(to-r, #F4C8E1, #DB4D9E)'} bgClip={'text'}>{link.name}</Text> */}
           {link.name}
         </NavItem>
       ))}
@@ -191,7 +173,7 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
   const logout = useLogout();
   const { colorMode, toggleColorMode } = useColorMode()
   const navigate = useNavigate();
-  
+
   return (
     <Flex
       ml={{ base: 0, md: 60 }}

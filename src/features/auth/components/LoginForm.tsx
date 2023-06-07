@@ -73,13 +73,7 @@ export const LoginForm = () => {
               <Button
                 isLoading={login.isLoading}
                 type="submit"
-              //bgColor='primary'
-              // bgColor={'tfogreen.500'}
-              // _hover={{ bgColor: 'tfogreen.300' }}
-              //bgGradient={'linear(to-r, #DB4D9E, #AC42DB, #2D1D8F)'}
-              // _hover={{
-              //   bgGradient: 'linear(to-r, #F4C8E1, #DB4D9E)',
-              // }}
+                variant='outline'
               >
                 Sign in
               </Button>

@@ -90,7 +90,7 @@ export const Companies = ({ onClick }: CompaniesProps) => {
             templateColumns={'repeat(auto-fit, minmax(330px, 1fr))'}
             gap={10}
         >
-            {data?.map((company, index) => (
+            {/* {data?.map((company, index) => (
                 <ReportPackageCard
                     key={company.id || index}
                     daysToDeliver={0}
@@ -99,7 +99,7 @@ export const Companies = ({ onClick }: CompaniesProps) => {
                     onClick={onClick} 
                     />
             ))
-            }
+            } */}
         </Grid >
     )
 }

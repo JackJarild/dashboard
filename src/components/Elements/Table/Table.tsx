@@ -15,9 +15,10 @@ type TableColumn<Entry> = {
 export type TableProps<Entry> = {
     data: Entry[]
     columns: TableColumn<Entry>[]
+    variant?: 'striped' | 'simple'
 }
 
-export const Table = <Entry extends { id?: number | string, orderId?: number }>({ data, columns }: TableProps<Entry>) => {
+export const Table = <Entry extends { id?: number | string, orderId?: number }>({ data, columns, variant = 'simple' }: TableProps<Entry>) => {
     const [direction, setDirection] = React.useState<string>('desc')
     const [sortDesc, setSortDesc] = useBoolean()
 
@@ -38,6 +39,7 @@ export const Table = <Entry extends { id?: number | string, orderId?: number }>(
                     <ChakraTable
                         w={'full'}
                         bg={'white'}
+                        variant={variant}
                     >
                         <Thead>
                             <Tr borderColor={'gray.200'}>
@@ -127,7 +129,7 @@ const TableFooter = () => {
         <Box px={6} pb={6} m={0} bg={'white'}>
             <HStack justify={'space-between'} align={'center'} gap={3}>
                 <Text size={'sm'}>Showing 1 to 5 of 42 results</Text>
-                
+
             </HStack>
         </Box>
     )

@@ -1,3 +1,5 @@
 export * from './StatsCard'
 export * from './Button'
 export * from './Logo'
+export * from './Modal'
+export * from './Table'

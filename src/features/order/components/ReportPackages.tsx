@@ -19,80 +19,16 @@ export const ReportPackages = ({ onClick }: ReportPackagesProps) => {
                 {Array.from(Array(8).keys()).map((id) => {
                     return (
                         <Skeleton
-                    h={'375px'}
-                    w={'330px'}
-                    boxShadow={'2xl'}
-                    rounded={'md'}
-                    isLoaded={status !== 'loading'}
-                    fadeDuration={1}
-                />
+                            key={id}
+                            h={'375px'}
+                            w={'330px'}
+                            boxShadow={'2xl'}
+                            rounded={'md'}
+                            isLoaded={status !== 'loading'}
+                            fadeDuration={1}
+                        />
                     )
                 })}
-                {/* <Skeleton
-                    h={'375px'}
-                    w={'330px'}
-                    boxShadow={'2xl'}
-                    rounded={'md'}
-                    isLoaded={status !== 'loading'}
-                    fadeDuration={1}
-                />
-                   <Skeleton
-                    h={'375px'}
-                    w={'330px'}
-                    boxShadow={'2xl'}
-                    rounded={'md'}
-                    isLoaded={status !== 'loading'}
-                    fadeDuration={1}
-                />
-                   <Skeleton
-                    h={'375px'}
-                    w={'330px'}
-                    boxShadow={'2xl'}
-                    rounded={'md'}
-                    isLoaded={status !== 'loading'}
-                    fadeDuration={1}
-                />
-                   <Skeleton
-                    h={'375px'}
-                    w={'330px'}
-                    boxShadow={'2xl'}
-                    rounded={'md'}
-                    isLoaded={status !== 'loading'}
-                    fadeDuration={1}
-                />
-                   <Skeleton
-                    h={'375px'}
-                    w={'330px'}
-                    boxShadow={'2xl'}
-                    rounded={'md'}
-                    isLoaded={status !== 'loading'}
-                    fadeDuration={1}
-                />
-                   <Skeleton
-                    h={'375px'}
-                    w={'330px'}
-                    boxShadow={'2xl'}
-                    rounded={'md'}
-                    isLoaded={status !== 'loading'}
-                    fadeDuration={1}
-                />
-                   <Skeleton
-                    h={'375px'}
-                    w={'330px'}
-                    boxShadow={'2xl'}
-                    rounded={'md'}
-                    isLoaded={status !== 'loading'}
-                    fadeDuration={1}
-                />
-                   <Skeleton
-                    h={'375px'}
-                    w={'330px'}
-                    boxShadow={'2xl'}
-                    rounded={'md'}
-                    isLoaded={status !== 'loading'}
-                    fadeDuration={1}
-                />
-                 */}
             </Grid>
         )
     }
@@ -107,9 +43,10 @@ export const ReportPackages = ({ onClick }: ReportPackagesProps) => {
                     key={reportPackage.id || index}
                     daysToDeliver={reportPackage.daysToDeliver}
                     description={reportPackage.description ?? ''}
-                    reportPackage={reportPackage.customName}
-                    onClick={onClick} 
-                    />
+                    customName={reportPackage.customName}
+                    checkpoints={reportPackage.checkpoints}
+                    onClick={onClick}
+                />
             ))
             }
         </Grid >

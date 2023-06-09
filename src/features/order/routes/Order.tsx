@@ -101,6 +101,7 @@ export const CustomStepper = ({
 
     return (
         <Stepper
+            key={activeStep}
             index={activeStep}
             size={size}
             orientation={orientation === "vertical" ? 'vertical' : undefined}

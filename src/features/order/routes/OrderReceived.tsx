@@ -3,10 +3,23 @@ import { Button } from "@/components/Elements"
 import { Box, Heading, Icon, List, ListIcon, ListItem, Text } from "@chakra-ui/react"
 import { FiCheckCircle, FiCheck } from "react-icons/fi"
 import { useNavigate } from "react-router-dom"
+import JSConfetti from "js-confetti"
+import { useEffect } from "react"
 
 
 export const OrderReceived = () => {
     const navigate = useNavigate()
+
+    useEffect(() => {
+        const jsConfetti = new JSConfetti()
+        // jsConfetti.addConfetti({
+        //     confettiColors: [
+        //         '#EC9DC9', '#009B48', '#DB4D9E', '#AB42DB', '#2E1D8F'
+        //     ]
+        // })
+        jsConfetti.addConfetti()
+    }, [])
+   
 
     return (
         <Box textAlign="center" py={10} px={6}>

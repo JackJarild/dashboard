@@ -4,7 +4,6 @@ import { PropsWithChildren, ReactNode } from "react";
 type ModalProps = {
     isOpen: boolean;
     onClose: () => void;
-    header?: string
     //initialFocus?: React.MutableRefObject<null>;
   };
 
@@ -12,8 +11,7 @@ export const Modal = (
     { 
         isOpen, 
         onClose, 
-        children, 
-        header 
+        children 
     }: PropsWithChildren<ModalProps>) => {
     return (
         <ChakraModal isOpen={isOpen} onClose={onClose} size={"lg"}>
@@ -26,15 +24,15 @@ export const Modal = (
     )
 }
 
-const Header = ({ children }) => {
+const Header = ({ children }: PropsWithChildren) => {
     return <ModalHeader>{children}</ModalHeader>
 }
 
-const Body = ({ children }) => {
+const Body = ({ children }: PropsWithChildren) => {
     return <ModalBody>{children}</ModalBody>
 }
 
-const Footer = ({ children }) => {
+const Footer = ({ children }: PropsWithChildren) => {
     return <ModalFooter px={6} py={5}>{children}</ModalFooter>
 }
 

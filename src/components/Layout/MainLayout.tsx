@@ -6,11 +6,11 @@ import { useUser } from "@/lib/auth";
 
 export const MainLayout = () => {
     const outlet = useOutlet()
-    const user = useUser()
+    // const user = useUser()
 
-    if(!user?.data) {
-        return <Navigate to='/login' />
-    }
+    // if(!user?.data) {
+    //     return <Navigate to='/login' />
+    // }
 
     return (
         <Suspense

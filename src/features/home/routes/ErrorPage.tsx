@@ -30,6 +30,16 @@ export const ErrorPage = () => {
           variant="solid"
           onClick={() => navigate('/login')}
         >
+          Refresh page
+        </Button>
+
+        <Button
+          colorScheme="tfogreen"
+          bgGradient="linear(to-r, tfogreen.400, tfogreen.500)"
+          color="white"
+          variant="solid"
+          onClick={() => navigate('/login')}
+        >
           Go to login
         </Button>
       </Box>

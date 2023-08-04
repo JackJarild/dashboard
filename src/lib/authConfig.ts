@@ -1,3 +1,4 @@
+import React from "react";
 import { 
     QueryFunction, 
     QueryKey, 
@@ -7,7 +8,6 @@ import {
     useQueryClient, 
     useMutation, 
     useQuery } from "@tanstack/react-query";
-import React from "react";
 
 export interface ReactQueryAuthConfig<
     User,
@@ -82,9 +82,10 @@ export function configureAuth<
             },
         })
     }
+
     return {
         useUser,
         useLogin,
-        useLogout,
+        useLogout
     };
 }

@@ -7,19 +7,24 @@ import {
 import { storage } from '@/utils/storage';
 import { configureAuth } from './authConfig';
 
-const handleUserResponse = async (user: UserResponse) => {
+const handleUserResponse = async (user: UserResponse): Promise<UserResponse> => {
+    console.log('handleUserResponse', user)
     storage.setUser(user)
     storage.setToken(user.token)
     return user;
 }
 
-const userFn = async (): Promise<UserResponse | null> => {
+const userFn = async (): Promise<UserResponse | null> =>  {
+    console.log('userFn')
     if (storage.getUser()) {
         const { id } = storage.getUser()
         const user = await getUser(id)
+
+        console.log('userData', user)
+
         return user
     }
-
+    console.log('userFn return null')
     return null
 }
 

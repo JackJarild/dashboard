@@ -12,7 +12,8 @@ export const NotFound = () => {
           display="inline-block"
           as="h2"
           size="4xl"
-          bgGradient="linear(to-r, tfogreen.400, tfogreen.600)"
+          bgColor={'tfogreen.400'}
+          //bgGradient="linear(to-r, tfogreen.400, tfogreen.600)"
           backgroundClip="text">
           404
         </Heading>
@@ -21,7 +22,8 @@ export const NotFound = () => {
         </Text>
         <Button
           colorScheme="tfogreen"
-          bgGradient="linear(to-r, tfogreen.400, tfogreen.500)"
+          bgColor={'tfogreen.500'}
+          //bgGradient="linear(to-r, tfogreen.400, tfogreen.500)"
           color="white"
           variant="solid"
           onClick={() => navigate('/')}

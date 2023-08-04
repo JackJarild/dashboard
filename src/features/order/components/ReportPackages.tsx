@@ -20,8 +20,8 @@ export const ReportPackages = ({ onClick }: ReportPackagesProps) => {
                     return (
                         <Skeleton
                             key={id}
-                            h={'375px'}
-                            w={'330px'}
+                            minH={'375px'}
+                            minW={'330px'}
                             boxShadow={'2xl'}
                             rounded={'md'}
                             isLoaded={status !== 'loading'}

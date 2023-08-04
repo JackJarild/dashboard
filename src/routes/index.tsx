@@ -1,5 +1,6 @@
 import { Navigate, Route, createBrowserRouter, createRoutesFromElements } from 'react-router-dom';
 import { lazyImport } from '@/utils/lazyImport';
+import { ProtectedRoute } from './ProtectedRoute';
 
 const { Login } = lazyImport(() => import('@/features/auth'), 'Login');
 const { MainLayout } = lazyImport(() => import('@/components/Layout'), 'MainLayout');
@@ -15,16 +16,19 @@ export const router = createBrowserRouter(
   createRoutesFromElements(
     <>
       <Route
+        index
         path="/login"
         element={<Login />}
       //errorElement={<Navigate to='/' />}
       />
 
-      <Route
-        element={<MainLayout />}
-        errorElement={<ErrorPage />}
-      >
-        <Route errorElement={<ErrorPage />}>
+      <Route element={<ProtectedRoute />}>
+        <Route
+          element={<MainLayout />}
+          errorElement={<ErrorPage />}
+        >
+          {/* <Route errorElement={<ErrorPage />}> */}
+
           <Route path="/" element={<Home isFirstMount={true} />} />
           <Route path="order" element={<Order />} />
           <Route path='order/received' element={<OrderReceived />} />
@@ -32,6 +36,8 @@ export const router = createBrowserRouter(
           <Route path="archive" element={<Archive />} />
           <Route path='*' element={<NotFound />} />
         </Route>
+
+        {/* </Route> */}
       </Route>
 
     </>

@@ -45,9 +45,9 @@ const baseThemeOverrides = {
       information: 'blue.500'
     }
   },
-  components: {
-    Button
-  }
+  // components: {
+  //   Button
+  // }
 };
 
 export default extendTheme(baseThemeOverrides)

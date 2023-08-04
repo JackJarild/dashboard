@@ -1,7 +1,7 @@
-import { useQuery } from '@tanstack/react-query';
+import { useQueries, useQuery } from '@tanstack/react-query';
 import { axios } from '@/lib/axios';
 import { ExtractFnReturnType, QueryConfig } from '@/lib/react-query';
-import { ArchivedReport } from '../types';
+import { ArchivedReport, Customer } from '../types';
 import { PagedList } from '@/types';
 
 export const getArchivedReports = (
@@ -12,7 +12,7 @@ export const getArchivedReports = (
     pageIndex: number,
     rowsPerPage: number)
     : Promise<PagedList<ArchivedReport>> => {
-    return axios.post(`ReportArchive/search`, {
+    return axios.post(`ReportArchive/search`, null, {
         params: {
             startDate,
             endDate,
@@ -24,7 +24,12 @@ export const getArchivedReports = (
     })
 }
 
-type QueryFnType = typeof getArchivedReports
+export const getConcernUsers = (companyId: number)
+    : Promise<Customer[]> => {
+    return axios.get(`user/customer/concern/${companyId}`)
+}
+
+type ArchivedReportsQueryFnType = typeof getArchivedReports
 
 type UseArchivedReportsOptions = {
     startDate: Date
@@ -33,22 +38,67 @@ type UseArchivedReportsOptions = {
     sortBy: string
     pageIndex: number
     rowsPerPage: number
-    config?: QueryConfig<QueryFnType>
+    config?: QueryConfig<ArchivedReportsQueryFnType>
 }
 
-export const useArchivedReports = (
+type ConcernUsersQueryFnType = typeof getConcernUsers
+
+type UseConcernUsersOptions = {
+    companyId: number
+    config?: QueryConfig<ConcernUsersQueryFnType>
+}
+
+export const useConcernUsers = (
     {
-        startDate,
-        endDate,
-        searchText,
-        sortBy,
-        pageIndex,
-        rowsPerPage,
+        companyId,
         config
-    }: UseArchivedReportsOptions) => {
-    return useQuery<ExtractFnReturnType<QueryFnType>>({
+    }: UseConcernUsersOptions) => {
+    return useQuery<ExtractFnReturnType<ConcernUsersQueryFnType>>({
         ...config,
-        queryKey: ['archivedReports', startDate, endDate, searchText, sortBy, pageIndex],
-        queryFn: () => getArchivedReports(startDate, endDate, searchText, sortBy, pageIndex, rowsPerPage),
+        queryKey: ['concernUsers', companyId],
+        queryFn: () => getConcernUsers(companyId),
     });
+};
+
+// export const useArchivedReports = (
+//     {
+//         startDate,
+//         endDate,
+//         searchText,
+//         sortBy,
+//         pageIndex,
+//         rowsPerPage,
+//         config
+//     }: UseArchivedReportsOptions) => {
+//     return useQuery<ExtractFnReturnType<ArchivedReportsQueryFnType>>({
+//         ...config,
+//         queryKey: ['archivedReports', startDate, endDate, searchText, sortBy, pageIndex],
+//         queryFn: () => getArchivedReports(startDate, endDate, searchText, sortBy, pageIndex, rowsPerPage),
+//     });
+// };
+
+type Test = {
+    useConcernUsersOptions: UseConcernUsersOptions
+    useArchivedReportsOptions: UseArchivedReportsOptions
+}
+
+export const useArchivedReports = (props: Test) => {
+    return useQueries<[
+        ExtractFnReturnType<ArchivedReportsQueryFnType>,
+        ExtractFnReturnType<ConcernUsersQueryFnType>]>
+        ({
+            queries: [
+                {
+                    //...props.useArchivedReportsOptions.config,
+                    queryKey: ['archivedReports', props.useArchivedReportsOptions.startDate, props.useArchivedReportsOptions.endDate, props.useArchivedReportsOptions.searchText, props.useArchivedReportsOptions.sortBy, props.useArchivedReportsOptions.pageIndex],
+                    queryFn: () => getArchivedReports(props.useArchivedReportsOptions.startDate, props.useArchivedReportsOptions.endDate, props.useArchivedReportsOptions.searchText, props.useArchivedReportsOptions.sortBy, props.useArchivedReportsOptions.pageIndex, props.useArchivedReportsOptions.rowsPerPage),
+                },
+                {
+                    //...props.useConcernUsersOptions.config,
+                    queryKey: ['concernUsers', props.useConcernUsersOptions.companyId],
+                    queryFn: () => getConcernUsers(props.useConcernUsersOptions.companyId),
+                }
+            ]
+        }
+        );
 };
